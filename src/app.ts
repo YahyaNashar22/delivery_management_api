@@ -21,6 +21,7 @@ export class App {
         origin: [
           "http://localhost:5173",
           "https://delivery-management-api-k06v.onrender.com",
+          "https://delivery-buddy.netlify.app/",
         ],
         credentials: true,
       }),
