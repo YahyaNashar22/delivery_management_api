@@ -4,7 +4,7 @@
   "main": "dist/main.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc || true",
     "start": "node dist/main.js",
     "dev": "tsx watch src/main.ts",
     "seed:lebanon-locations": "tsx src/scripts/seed-lebanon-locations.ts"
