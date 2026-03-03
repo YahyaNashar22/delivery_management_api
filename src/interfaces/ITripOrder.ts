@@ -6,4 +6,6 @@ export interface ITripOrder {
   order: Types.ObjectId;
   status: TripOrderStatus;
   index: number; // used to re-arrange order
+  fee_applied: boolean; // when returned/damaged/cancelled, whether fee is still charged
+  note?: string;
 }

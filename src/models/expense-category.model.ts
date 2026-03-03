@@ -18,9 +18,6 @@ const expenseCategorySchema = new Schema<IExpenseCategoryDocument>(
   },
 );
 
-// Index for faster lookup
-expenseCategorySchema.index({ name: 1 }, { unique: true });
-
 export const ExpenseCategoryModel = model<IExpenseCategoryDocument>(
   "ExpenseCategory",
   expenseCategorySchema,

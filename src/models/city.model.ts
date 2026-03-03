@@ -36,7 +36,4 @@ const citySchema = new Schema<ICityDocument>(
   },
 );
 
-// Index for faster lookups
-citySchema.index({ name: 1 });
-
 export const CityModel = model<ICityDocument>("City", citySchema);

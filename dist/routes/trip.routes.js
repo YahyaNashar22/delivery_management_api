@@ -1,0 +1,13 @@
+import { Router } from "express";
+import { TripController } from "../controllers/trip.controller.js";
+import { asyncHandler } from "../utils/async-handler.js";
+const controller = new TripController();
+export const tripRouter = Router();
+tripRouter.get("/", asyncHandler(controller.list.bind(controller)));
+tripRouter.get("/assignable-orders", asyncHandler(controller.assignableOrders.bind(controller)));
+tripRouter.post("/", asyncHandler(controller.create.bind(controller)));
+tripRouter.patch("/:id/status", asyncHandler(controller.updateStatus.bind(controller)));
+tripRouter.get("/:id/orders", asyncHandler(controller.getOrders.bind(controller)));
+tripRouter.post("/:id/orders", asyncHandler(controller.assignOrders.bind(controller)));
+tripRouter.patch("/:id/orders/:tripOrderId/status", asyncHandler(controller.updateTripOrderStatus.bind(controller)));
+tripRouter.post("/:id/close", asyncHandler(controller.closeTrip.bind(controller)));

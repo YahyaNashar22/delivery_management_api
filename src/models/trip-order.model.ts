@@ -34,6 +34,18 @@ const tripOrderSchema = new Schema<ITripOrderDocument>(
       required: true,
       min: 0,
     },
+
+    fee_applied: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+
+    note: {
+      type: String,
+      trim: true,
+      default: "",
+    },
   },
   {
     timestamps: true,

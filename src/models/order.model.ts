@@ -83,7 +83,7 @@ const orderSchema = new Schema<IOrderDocument>(
 
 // Helpful indexes for dashboard queries
 orderSchema.index({ createdAt: -1 });
-orderSchema.index({ user: 1, createdAt: -1 });
+orderSchema.index({ resource: 1, createdAt: -1 });
 orderSchema.index({ district: 1, createdAt: -1 });
 
 export const OrderModel = model<IOrderDocument>("Order", orderSchema);
