@@ -11,7 +11,6 @@ const userBalanceSchema = new Schema<IUserBalanceDocument>(
       ref: "User",
       required: true,
       unique: true,
-      index: true,
     },
 
     order_count: {

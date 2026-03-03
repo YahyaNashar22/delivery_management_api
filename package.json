@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
-    "dev": "tsx watch src/main.ts"
+    "dev": "tsx watch src/main.ts",
+    "seed:lebanon-locations": "tsx src/scripts/seed-lebanon-locations.ts"
   },
   "keywords": [],
   "author": "Yahya Nashar",

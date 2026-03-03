@@ -27,6 +27,69 @@ const statementSchema = new Schema<IStatementDocument>(
         required: true,
       },
     ],
+
+    order_count: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+
+    order_total_usd: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+
+    order_total_lbp: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+
+    fee_total_usd: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+
+    fee_total_lbp: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+
+    old_balance_usd: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+
+    old_balance_lbp: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+
+    new_balance_usd: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+
+    new_balance_lbp: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
   },
   {
     timestamps: true,

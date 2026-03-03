@@ -41,4 +41,43 @@ export class OrderController {
 
     res.status(201).json(serializeOrder(populated));
   }
+
+  public async bulkImport(req: Request, res: Response): Promise<void> {
+    if (!Array.isArray(req.body.orders) || req.body.orders.length === 0) {
+      res.status(400).json({ message: "orders array is required" });
+      return;
+    }
+
+    const rows = req.body.orders as Array<Record<string, unknown>>;
+    const bulkPayload = rows.map((row) => ({
+      number: typeof row.number === "number" ? row.number : undefined,
+      resource: assertRequiredString(row.resource, "resource"),
+      client_phone: assertRequiredString(row.client_phone, "client_phone"),
+      client_name: assertRequiredString(row.client_name, "client_name"),
+      district: assertRequiredString(row.district, "district"),
+      added_by: assertRequiredString(row.added_by, "added_by"),
+      price_usd: assertNonNegative(assertRequiredNumber(row.price_usd, "price_usd"), "price_usd"),
+      price_lbp: assertNonNegative(assertRequiredNumber(row.price_lbp, "price_lbp"), "price_lbp"),
+      fee_usd: assertNonNegative(assertRequiredNumber(row.fee_usd, "fee_usd"), "fee_usd"),
+      fee_lbp: assertNonNegative(assertRequiredNumber(row.fee_lbp, "fee_lbp"), "fee_lbp"),
+      cash_payed: Boolean(row.cash_payed),
+    }));
+
+    const result = await orderService.createBulk(bulkPayload);
+
+    const populated = await Promise.all(
+      result.created.map((order) => order.populate([
+        { path: "resource", select: "name" },
+        { path: "added_by", select: "name" },
+        { path: "district", select: "name city", populate: { path: "city", select: "name" } },
+      ])),
+    );
+
+    res.status(201).json({
+      created_count: populated.length,
+      failed_count: result.failed.length,
+      failed_rows: result.failed,
+      orders: populated.map(serializeOrder),
+    });
+  }
 }

@@ -20,4 +20,28 @@ export class OrderService {
     async create(payload) {
         return OrderModel.create(payload);
     }
+    async createBulk(payload) {
+        const highestOrder = await OrderModel.findOne().sort({ number: -1 }).select("number").lean();
+        let nextNumber = Number(highestOrder?.number ?? 0) + 1;
+        const created = [];
+        const failed = [];
+        for (let index = 0; index < payload.length; index += 1) {
+            const row = payload[index];
+            try {
+                const number = typeof row.number === "number" && !Number.isNaN(row.number)
+                    ? row.number
+                    : nextNumber++;
+                const order = await OrderModel.create({
+                    ...row,
+                    number,
+                });
+                created.push(order);
+            }
+            catch (error) {
+                const message = error instanceof Error ? error.message : "Failed to create row";
+                failed.push({ index, message });
+            }
+        }
+        return { created, failed };
+    }
 }

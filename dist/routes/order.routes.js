@@ -5,3 +5,4 @@ const controller = new OrderController();
 export const orderRouter = Router();
 orderRouter.get("/", asyncHandler(controller.list.bind(controller)));
 orderRouter.post("/", asyncHandler(controller.create.bind(controller)));
+orderRouter.post("/bulk-import", asyncHandler(controller.bulkImport.bind(controller)));

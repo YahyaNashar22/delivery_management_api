@@ -130,3 +130,65 @@ export const serializeDailyBox = (dailyBox) => ({
     },
     created_at: dailyBox.createdAt,
 });
+export const serializeStatement = (statement) => ({
+    id: getId(statement._id),
+    user: {
+        id: getId(statement.user),
+        name: statement.user?.name ?? "",
+        email: statement.user?.email ?? "",
+    },
+    title: statement.title,
+    orders: Array.isArray(statement.orders)
+        ? statement.orders.map((order) => ({
+            id: getId(order),
+            number: order?.number ?? 0,
+            client_name: order?.client_name ?? "",
+            client_phone: order?.client_phone ?? "",
+            price_usd: Number(order?.price_usd ?? 0),
+            price_lbp: Number(order?.price_lbp ?? 0),
+            fee_usd: Number(order?.fee_usd ?? 0),
+            fee_lbp: Number(order?.fee_lbp ?? 0),
+        }))
+        : [],
+    order_count: Number(statement.order_count ?? 0),
+    order_total_usd: Number(statement.order_total_usd ?? 0),
+    order_total_lbp: Number(statement.order_total_lbp ?? 0),
+    fee_total_usd: Number(statement.fee_total_usd ?? 0),
+    fee_total_lbp: Number(statement.fee_total_lbp ?? 0),
+    old_balance_usd: Number(statement.old_balance_usd ?? 0),
+    old_balance_lbp: Number(statement.old_balance_lbp ?? 0),
+    new_balance_usd: Number(statement.new_balance_usd ?? 0),
+    new_balance_lbp: Number(statement.new_balance_lbp ?? 0),
+    created_at: statement.createdAt,
+});
+export const serializeResourceWithBalance = (resourceWithBalance) => ({
+    user: {
+        id: getId(resourceWithBalance.user),
+        name: resourceWithBalance.user?.name ?? "",
+        email: resourceWithBalance.user?.email ?? "",
+        phone: resourceWithBalance.user?.phone ?? "",
+        status: resourceWithBalance.user?.status ?? "",
+    },
+    balance: {
+        order_count: Number(resourceWithBalance.balance?.order_count ?? 0),
+        balance_usd: Number(resourceWithBalance.balance?.balance_usd ?? 0),
+        balance_lbp: Number(resourceWithBalance.balance?.balance_lbp ?? 0),
+        order_total_usd: Number(resourceWithBalance.balance?.order_total_usd ?? 0),
+        order_total_lbp: Number(resourceWithBalance.balance?.order_total_lbp ?? 0),
+        fee_total_usd: Number(resourceWithBalance.balance?.fee_total_usd ?? 0),
+        fee_total_lbp: Number(resourceWithBalance.balance?.fee_total_lbp ?? 0),
+        old_balance_usd: Number(resourceWithBalance.balance?.old_balance_usd ?? 0),
+        old_balance_lbp: Number(resourceWithBalance.balance?.old_balance_lbp ?? 0),
+    },
+});
+export const serializePendingStatementOrder = (order) => ({
+    id: getId(order._id),
+    number: order.number,
+    client_name: order.client_name,
+    client_phone: order.client_phone,
+    district_name: order.district?.name ?? "",
+    price_usd: Number(order.price_usd ?? 0),
+    price_lbp: Number(order.price_lbp ?? 0),
+    fee_usd: Number(order.fee_usd ?? 0),
+    fee_lbp: Number(order.fee_lbp ?? 0),
+});

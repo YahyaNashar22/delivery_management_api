@@ -5,7 +5,6 @@ const userBalanceSchema = new Schema({
         ref: "User",
         required: true,
         unique: true,
-        index: true,
     },
     order_count: {
         type: Number,
