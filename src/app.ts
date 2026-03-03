@@ -16,7 +16,15 @@ export class App {
 
   private initializeMiddleware(): void {
     this.app.use(express.json());
-    this.app.use(cors());
+    this.app.use(
+      cors({
+        origin: [
+          "http://localhost:5173",
+          "https://delivery-management-api-k06v.onrender.com",
+        ],
+        credentials: true,
+      }),
+    );
     this.app.use(cookieParser());
   }
 
